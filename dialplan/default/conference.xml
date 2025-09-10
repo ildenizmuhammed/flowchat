@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<include>
+  <!-- Conference dialplan for DataFlow Spaces -->
+  <extension name="conference_rooms">
+    <condition field="destination_number" expression="^conference_(\d+)$">
+      <action application="answer"/>
+      <action application="sleep" data="1000"/>
+      <action application="conference" data="${destination_number}@default+flags{moderator|mintwo}"/>
+    </condition>
+  </extension>
+  
+  <!-- WebRTC conference rooms -->
+  <extension name="webrtc_conference">
+    <condition field="destination_number" expression="^room_(\d+)$">
+      <action application="answer"/>
+      <action application="sleep" data="1000"/>
+      <action application="conference" data="${destination_number}@default+flags{moderator|mintwo|record}"/>
+    </condition>
+  </extension>
+  
+  <!-- Conference control commands -->
+  <extension name="conference_control">
+    <condition field="destination_number" expression="^conf_(\w+)_(\w+)$">
+      <action application="conference" data="${destination_number}@default+flags{moderator}"/>
+    </condition>
+  </extension>
+</include>
